@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastro</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="list-group">
+                    {% for category, message in messages %}
+                        <li class="list-group-item list-group-item-{{ 'success' if category == 'success' else 'danger' }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form method="post" action="/cadastro" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {{ form.username.label(class="form-control-label") }}
+                {{ form.username(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {{ form.email(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label(class="form-control-label") }}
+                {{ form.password(class="form-control") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.confirm_password.label(class="form-control-label") }}
+                {{ form.confirm_password(class="form-control") }}
+            </div>
+
+            <!-- Adicionando campo de upload para a foto de perfil -->
+            <div class="form-group">
+                {{ form.profile_picture.label(class="form-control-label") }}
+                {{ form.profile_picture(class="form-control-file") }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+
+        <p>Já tem uma conta? <a href="/login">Faça login</a></p>
+    </div>
+</body>
+</html>

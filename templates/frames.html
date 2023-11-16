@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/styles/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/x-icon" href="static/source/favicon.png">
+    <title>Frames - Adaframe</title>
+</head>
+<body class="randomBack forceNoScroll">
+    <div class="todoView verticalDynamic flowerFeelings">
+        <div class="verticalDynamic">
+            <navbar>
+                <button class="navBt" id="navBtLeft" onclick="lateralOpen(this)">
+                    <i class="fas fa-chevron-left"></i>
+                    <i class="fas fa-calendar-alt"></i>
+                </button>
+                <div class="fillSpace"></div>
+                <img class="navLogo" src="static/source/AdaframeLogoWhite.svg">
+                <b class="titleNav">Adaframe</b>
+                <span class="text" id="navBarSpaceTitle"></span>
+                <div class="fillSpace"></div>
+                
+                <button class="navBt" id="navBtRight" onclick="lateralOpen(this)">
+                    <i class="fas fa-cog"></i>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </navbar>
+            <div class="innerView horizontalDynamic">
+                <div class="lateralNavComp" id="lateralLeftNavComp"></div>
+                <div class="responsiveNav borderRight fromLeftAnim">
+                    
+                    <div class="overflowHiddenTodo">
+                        <div class="lateralNav verticalScroll" id="spaceList">
+                            
+                        </div>
+                    </div>
+                    <div class="discretDivider"></div>
+                    <button class="pyBt" onclick="openNewSpacePrompt()">Criar um novo espaço<i class="far fa-calendar-plus"></i></button>
+                    
+                </div>
+
+                
+                
+                <div class="fillSpace overflowHiddenTodo">
+
+                    <div class="centerView darkenBack " style="padding: 16px;" id="welcomeScreen">
+                
+                        <div class="fillSpace"></div>
+                        <img class="iconTitle" src="static/source/AdaframeLogoWhite.svg" style="margin-bottom: -16px;">
+                        <h1>Adafra.me</h1>
+                        <h2>Para começar, crie um quadro e comece a organizá-lo!</h2>
+                        <span style="margin-top: 8px"></span>
+                        <button class="pyBt" onclick="document.getElementById('newSpaceHint').classList.add('hideElement'); openNewSpacePrompt();">
+                            Criar um novo espaço<i class="far fa-calendar-plus"></i>
+                            <div class="hintButton" id="newSpaceHint">
+                                Crie um novo espaço para continuar!
+                            </div>
+                        </button>
+                        
+                        <div class="fillSpace"></div>
+                        <h6 style="margin-bottom: 16px;">© 2023 - <a href="https://sammahonri.com" target="_blank">Sam Mahonri</a>  and Contributors</h6>
+                        
+                    </div>
+
+                    <div class="blurAllScreen hideElement" id="newSpacePromptTitle">
+                        <div class="centerView">
+                            <div class="simplePrompt">
+                                <button class="closeBt" onclick="document.getElementById('newSpacePromptTitle').classList.add('hideElement');">Desisto <i class="fas fa-times-circle"></i></button>
+                                <h1><i class="far fa-calendar-plus"></i></h1>
+                                <h2>Título do novo espaço</h2>
+                                <form onsubmit="novoEspaco(document.getElementById('newSpaceTitleText').value); return false">
+                                    <input class="inputText" type="text" id="newSpaceTitleText" placeholder="Até 15 dígitos - sem $_/" required>
+                                    <button class="pyBt">
+                                        Criar espaço<i class="fas fa-check-circle"></i>
+                                        
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="horizontalScroll horizontalDynamic darkenBack hideElement" id="theFrames">
+                        <div class="framesArea" id="framesArea">
+                            <div class="postArea ">
+                                <div class="promptPost">
+                                    <span class="frameTitle">Bem-vindo!</span>
+                                </div>
+                                
+                                <div class="verticalScroll" id="SCR_$A fazerAA">
+
+                                    <div class="post" id="post_1">
+                                        
+                                        <div class="titlePost" id="post_1_title">
+                                            
+                                            Continue seu trabalho!
+                                        
+                                        </div>
+                                        <div class="text">
+                                            Selecione um espaço que você criou anteriormente!
+                                        </div>
+                                        <img class="navLogo" src="static/source/AdaframeLogoWhite.svg">
+                                    </div>
+                                    
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <button class="pyBt newFrameBt hideElement" id="newFrameBtN"  onclick="document.getElementById('newFrameHint').classList.add('hideElement'); openNewFramePrompt();">
+                            Novo Frame<i class="fas fa-plus-circle"></i>
+                            <div class="hintButton" id="newFrameHint">
+                                Agora que você já está no quadro, crie um novo frame!
+                            </div>
+                        </button>
+                        <div class="blurAllScreen hideElement" id="newFramePromptTitle">
+                            <div class="centerView">
+                                <div class="simplePrompt">
+                                    <button class="closeBt" onclick="document.getElementById('newFramePromptTitle').classList.add('hideElement');">Desisto <i class="fas fa-times-circle"></i></button>
+                                    <h1><i class="fas fa-folder-plus"></i></h1>
+                                    <h2>Título do frame</h2>
+                                    <form onsubmit="novoFrame(document.getElementById('newFrameTitleText').value); return false">
+                                        <input class="inputText" type="text" id="newFrameTitleText" placeholder="Até 15 dígitos - sem $_/" required>
+                                        <button class="pyBt">Criar<i class="fas fa-check-circle"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blurAllScreen hideElement" id="postDeleteConfirmation">
+                            <div class="centerView">
+                                <div class="simplePrompt dangerPromptAdd">
+                                    <button class="closeBt" onclick="document.getElementById('postDeleteConfirmation').classList.add('hideElement');">Desisto <i class="fas fa-times-circle"></i></button>
+                                    <h1> <i class="fas fa-skull-crossbones"></i> </h1>
+                                    <h2>Excluir post?</h2>
+                                    <button class="pyBt redBt" onclick="deletePost()">Sim, quero excluir<i class="fas fa-bomb"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blurAllScreen hideElement" id="spaceDeleteConfirmation">
+                            <div class="centerView">
+                                <div class="simplePrompt dangerPromptAdd">
+                                    <button class="closeBt" onclick="document.getElementById('spaceDeleteConfirmation').classList.add('hideElement');">Desisto <i class="fas fa-times-circle"></i></button>
+                                    <h1> <i class="fas fa-skull-crossbones"></i> </h1>
+                                    <h2>Excluir este espaço?</h2>
+                                    <button class="pyBt redBt" onclick="deleteSpace()">Sim, quero excluir<i class="fas fa-bomb"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blurAllScreen hideElement" id="newPostPromptTitle">
+                            <div class="centerView">
+                                <div class="simplePrompt">
+                                    <button class="closeBt" onclick="document.getElementById('newPostPromptTitle').classList.add('hideElement');">Desisto <i class="fas fa-times-circle"></i></button>
+                                    <h1><i class="fa-solid fa-signs-post"></i></h1>
+                                    <h2>Criando um novo post</h2>
+                                    <form onsubmit="novoPost(document.getElementById('newPostTitleText').value, document.getElementById('newPostDescrText').value); return false">
+                                        <label>Título do post</label>
+                                        <input class="inputText" type="text" id="newPostTitleText" placeholder="Até 15 dígitos - sem $_/" required>
+                                        <label>Conteúdo do post</label>
+                                        <textarea id="newPostDescrText" name="texto" class="inputText" style="width: 100%; height: 128px; font-size: 10pt;" placeholder="Descrição do post - sem tags HTML" required></textarea>
+                                        <button class="pyBt">Criar<i class="fas fa-check-circle"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blurAllScreen hideElement" id="editPost">
+                            <div class="centerView">
+                                <div class="simplePrompt">
+                                    <button class="closeBt" onclick="document.getElementById('editPost').classList.add('hideElement');">Desisto <i class="fas fa-times-circle"></i></button>
+                                    <h1><i class="far fa-edit"></i></h1>
+                                    <h2>Editando este post</h2>
+                                    <form onsubmit="editPost(document.getElementById('editPostTitleText').value, document.getElementById('editPostDescrText').value); return false">
+                                        <input class="inputText" type="text" id="editPostTitleText" placeholder="Título do post" required>
+                                        <textarea id="editPostDescrText" name="texto" class="inputText" style="width: 100%; height: 128px; font-size: 10pt;" placeholder="Descrição do post" required></textarea>
+                                        <button class="pyBt">Salvar<i class="fas fa-check-circle"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="blurAllScreen hideElement" id="moveAPost">
+                    <div class="centerView">
+                        <div class="simplePrompt" style="max-height: 90%;">
+                            <button class="closeBt" onclick="document.getElementById('moveAPost').classList.add('hideElement');">Desisto <i class="fas fa-times-circle"></i></button>
+                            <h1><i class='fa-solid fa-arrows-left-right'></i></h1>
+                            <h2>Mover este post <b>para</b> </h2>
+                            <div class="overflowHiddenTodo">
+                                <div class="lateralNav verticalScroll" id="listPost">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lateralNavComp" id="lateralRightNavComp"></div>
+                
+                <div class="responsiveNav borderLeft fromRightAnim">
+                    
+                    <div class="overflowHiddenTodo">
+                        <div class="lateralNav verticalScroll">
+                            <div id="NAVRIGHT_UserArea" style="display: flex; flex-direction: column; justify-content: center; align-items: center;" class="promptLatInfo">
+                                {% if profile_picture %}
+                                    <img class="iconTitle" src="data:image/png;base64,{{ profile_picture }}" alt="Profile Picture" style="border-radius: 50%; height: 48px !important; width: 48px !important;">
+                                {% else %}
+                                    <img class="iconTitle" src="static/source/AdaframeLogoWhite.png" style=" height: 48px !important; width: 48px !important;">
+                                {% endif %}
+
+                                {% if username %}
+                                    <p>Olá, {{ username.split(' ')[0] }}!</p>
+                                    <span class="horizontalDynamic" style="gap: 8px;">
+                                        <a href="/editar_perfil"><button class="pyBt miniBt">Editar perfil<i class="fa-solid fa-user-pen"></i></button></a>
+                                        <a href="/logout"><button class="discretBt miniBt">Sair<i class="fa-solid fa-right-from-bracket"></i></button></a>
+                                    </span>
+                                    
+                                {% else %}
+                                    <a href="/login"><button class="pyBt miniBt">Fazer login<i class="fa-solid fa-right-to-bracket"></i></button></a>
+                                {% endif %}
+                                
+                            </div>
+                            
+                            <div id="NAVRIGHT_Storage" class="promptLatInfo">
+                                
+                                <h3 class="titleSdBar">Armazenamento</h3>
+                                
+                                <p>Armazenamento local</p>
+                                <span class="infoText okInfo" id="localStatusNAV">
+                                    <p>Sempre salvo</p>
+                                    <i class="fa-solid fa-hard-drive"></i>
+                                </span>
+                                <p id="mblocal"></p>
+                                {% if username %}
+                                    <div class="discretDivider"></div>
+
+                                    <p>Armazenamento na núvem</p>
+                                    <span class="infoText warnInfo" id="cloudStatusNAV">
+                                        <p>Indisponível</p>
+                                        <i class="fa-solid fa-tornado"></i>
+                                    </span>
+                                {% else %}
+                                    <p>Faça login para sincronizar as atividades!</p>
+                                {% endif %}
+                            </div>
+                            <div id="NAVRIGHT_Space" class=" hideElement">
+                                <h3 class="titleSdBar">Este espaço</h3>
+                                
+                                <button class="pyBt redBt" onclick="openDeleteSpaceConfirmation()">Remover espaço<i class="fas fa-tools"></i></button>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="discretDivider"></div>
+                    <button class="pyBt disabled">Personalizar<i class="fas fa-tools"></i></button>
+                    
+                </div>
+            </div>
+
+            <script src="static/scripts/js_ada.js"></script>
+            <script>
+                loadAtStartup()
+            </script>
+        </div>
+        <div class="rainbow"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --dark-background-color: #28262e;
+    --sec-dark-background-color: #2a2730bd;
+    --soft-dark-background-color: #2d2839b3;
+    --soft-sec-dark-background-color: #48435898;
+
+    --light-background-color: #ededf7;
+    --sec-light-background-color: #cbc3e3;
+    --soft-light-background-color: #ededf79c;
+    --soft-sec-light-background-color: #b3aace98;
+
+    --dark-text-color: #373340;
+    --light-text-color: #f4f1f9;
+
+    --error-color: #e62169;
+    --success-color: #4bda7b;
+    --warning-color: #eb8958;
+
+    --current-background-color: var(--dark-background-color);
+    --current-sec-background-color: var(--sec-dark-background-color);
+    --current-soft-background-color: var(--soft-dark-background-color);
+    --current-soft-sec-background-color: var(--soft-sec-dark-background-color);
+    --current-text-color: var(--light-text-color);
+
+    --discret-border-color: #ffffff2c;
+
+    --current-accent-user-color: #7f56d9;
+    --current-sec1-user-color: #7f56d9d0;
+    --current-sec2-user-color: #7f56d962;
+    --current-sec3-user-color: #7f56d920;
+
+    --accent-border-radius: 10px;
+    --padding-button: 12px 18px 12px 18px;
+
+    --mini-font-size: 10pt;
+    --text-font-size: 10pt;
+    --subtitle-font-size: 14pt;
+    --title-font-size: 18pt;
+    --supertitle-font-size: 28pt;
+
+    --transition-duration: 0.3s;
+}
+
+

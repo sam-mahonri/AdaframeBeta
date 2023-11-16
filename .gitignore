@@ -1,0 +1,3 @@
+internal/
+.env
+__pycache__
