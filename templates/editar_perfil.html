@@ -24,44 +24,52 @@
                             {% endfor %}
                         {% endif %}
                     {% endwith %}
-    
+                    
+                    <div class="form-group">
+                        
+                        <img src="data:image/jpeg;base64,{{ user_data.profile_picture }}" alt="Current Profile Picture" class="preview-image">
+                        <label for="current-profile-picture">Foto de perfil atual</label>
+                    </div>
+
                     <span class="discretDivider"></span>
 
                     <form method="post" action="/editar_perfil" enctype="multipart/form-data">
                         {{ form.csrf_token }}
+
                         <div class="form-group">
-                            {{ form.username.label(class="labelPc") }}
-                            {{ form.username(class="inputText") }}
+                            {{ form.profile_picture.label(class="labelPc form-control-label") }}
+                            <img id="previewImage" class="preview-image hideElement" src="" alt="Preview">
+                            <div class="inputText form-control-file custom-file-input">
+                                {{ form.profile_picture(class="form-control", id="fileInput") }}
+                                <div class="selected-file" id="fileName">Selecione um arquivo</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="horizontalDynamic miniRLabel" ><i class="fa-solid fa-signature"></i>{{ form.username.label(class="labelPc form-control-label") }}</span>
+                            {{ form.username(class="inputText", placeholder="Edite seu nome...") }}
                         </div>
 
                         
 
                         <div class="form-group">
-                            {{ form.password.label(class="labelPc") }}
-                            {{ form.password(class="inputText") }}
+                            <span class="horizontalDynamic miniRLabel" ><i class="fa-solid fa-key"></i>{{ form.password.label(class="labelPc form-control-label") }}</span>
+                            {{ form.password(class="inputText", placeholder="Se quiser, crie uma nova senha...") }}
                         </div>
 
                         <div class="form-group">
-                            {{ form.confirm_password.label(class="labelPc") }}
-                            {{ form.confirm_password(class="inputText") }}
+                            <span class="horizontalDynamic miniRLabel" ><i class="fa-solid fa-key"></i>{{ form.confirm_password.label(class="labelPc form-control-label") }}</span>
+                            {{ form.confirm_password(class="inputText", placeholder="Confirme...") }}
                         </div>
-
+                        
+                        <span class="discretDivider"></span>
+                        
                         <div class="form-group">
-                            <label for="current-profile-picture">Foto de perfil atual</label>
-                            <img src="data:image/jpeg;base64,{{ user_data.profile_picture }}" alt="Current Profile Picture" class="img-thumbnail">
+                            <span class="horizontalDynamic miniRLabel" ><i class="fa-solid fa-key"></i>{{ form.current_password.label(class="labelPc form-control-label") }}</span>
+                            {{ form.current_password(class="inputText", placeholder="Para aplicar, confirme sua senha...") }}
                         </div>
 
-                        <div class="form-group">
-                            {{ form.profile_picture.label(class="labelPc") }}
-                            {{ form.profile_picture(class="inputText") }}
-                        </div>
-
-                        <div class="form-group">
-                            {{ form.current_password.label(class="labelPc") }}
-                            {{ form.current_password(class="inputText") }}
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="submit" class="btn btn-primary">Salvar alterações<i class="fa-solid fa-floppy-disk"></i></button>
                     </form>
 
                     <button class="discretBt miniBt" style="margin-top: 16px;" onclick="window.location.href='/' ">Voltar ao inicio <i class="fa-solid fa-house"></i></button>
@@ -70,5 +78,6 @@
         </div>
         <div class="centerView maxmax hideMob"></div>
     </div>
+    <script src="static/scripts/utils.js"></script>
 </body>
 </html>

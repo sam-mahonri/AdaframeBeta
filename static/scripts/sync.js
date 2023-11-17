@@ -1,4 +1,11 @@
+
+
+var bufferAll = {}
+
 function pfvSinc(){
+    console.log(bufferAll)
+    console.log(userAllContent)
+
     console.log('Sincronizando...')
     document.getElementById('syncBt').classList.add('hideElement')
     let parametro = JSON.stringify(userAllContent);
@@ -20,9 +27,13 @@ function pfvSinc(){
         setCloudStatus('ERR', error, false)
         document.getElementById('syncBt').classList.remove('hideElement')
     });
+
+
 }
 
 function pfvSincAqui(){
+    console.log(bufferAll)
+    console.log(userAllContent)
     console.log('Carregando...')
     document.getElementById('syncBt').classList.add('hideElement')
     let parametro = JSON.stringify(userAllContent);
@@ -50,7 +61,9 @@ function pfvSincAqui(){
 }
 
 setInterval(() => {
+
     pfvSinc()
+
 }, 10000);
 
 function logout(){

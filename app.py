@@ -167,7 +167,7 @@ def sync_client():
     user_data = redis_client.hgetall(email)
 
     if current_password == user_data.get('password'):
-        saved_data = user_data.get('spaces', {})
+        saved_data = user_data.get("spaces", "{}")
         return jsonify({"OK": "Sucesso ao receber dados do servidor!", "data": saved_data})
     else:
         return jsonify({"ERROR":"Faça login novamente..."})
