@@ -76,6 +76,9 @@ def cadastro():
 
             flash('Cadastro bem-sucedido! Faça login agora.', 'success')
             return redirect(url_for('login'))
+    else:
+        if request.method == "POST":
+            flash('Hmm, parece que há algo errado neste formulário...', 'danger')
 
     return render_template('cadastro_wtf.html', form=form)
 
@@ -96,7 +99,7 @@ def editar_perfil():
 
     email = session['email']
     user_data = redis_client.hgetall(email)
-
+    
     if form.validate_on_submit():
         # Verificar a senha atual antes de permitir edições
         current_password = form.current_password.data
@@ -120,6 +123,9 @@ def editar_perfil():
 
         flash('Perfil atualizado com sucesso!', 'success')
         return redirect(url_for('editar_perfil'))
+    else:
+        if request.method == "POST":
+            flash('Hmm, parece que há algo errado neste formulário...', 'danger')
 
     # Preencher o formulário com os dados atuais do perfil
     form.username.data = user_data.get('username', '')

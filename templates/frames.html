@@ -29,9 +29,13 @@
             <div class="innerView horizontalDynamic">
                 <div class="lateralNavComp" id="lateralLeftNavComp"></div>
                 <div class="responsiveNav borderRight fromLeftAnim">
-                    
+                    <h3>Bem-vindo!</h3>
+                    <h6>Crie ou selecione um espaço...</h6>
+                        <span class="discretDivider"></span>
                     <div class="overflowHiddenTodo">
+                        
                         <div class="lateralNav verticalScroll" id="spaceList">
+                            
                             <span class="horizontalDynamic" style="width: 100%; align-items: center; justify-content: center; gap: 8px;">
                                 <p>Fim...</p>
                                 <i class="fa-solid fa-broom"></i>
@@ -73,7 +77,7 @@
                                 <button class="closeBt" onclick="document.getElementById('newSpacePromptTitle').classList.add('hideElement');">Desisto <i class="fas fa-times-circle"></i></button>
                                 <h1><i class="far fa-calendar-plus"></i></h1>
                                 <h2>Título do novo espaço</h2>
-                                <form onsubmit="novoEspaco(document.getElementById('newSpaceTitleText').value); return false">
+                                <form onsubmit="novoEspaco(document.getElementById('newSpaceTitleText').value); return false;">
                                     <input class="inputText" type="text" id="newSpaceTitleText" placeholder="Até 15 dígitos - sem $_/" required>
                                     <button class="pyBt">
                                         Criar espaço<i class="fas fa-check-circle"></i>
@@ -221,10 +225,11 @@
                                 {% endif %}
                                 
                             </div>
+                            
                             <div id="NAVRIGHT_Space" class=" hideElement">
                                 <h3 class="titleSdBar">Este espaço</h3>
                                 
-                                <button class="pyBt redBt" onclick="openDeleteSpaceConfirmation()">Remover espaço<i class="fas fa-tools"></i></button>
+                                <button class="pyBt redBt" onclick="openDeleteSpaceConfirmation()">Remover espaço<i class="fa-solid fa-eraser"></i></button>
                                 
                                 {% if username %}
                                     <span class="infoText hideElement" id="genPublicLinkStatusNAV">
@@ -232,8 +237,8 @@
                                         <i class="fa-solid fa-circle-notch fa-spin"></i>
                                     </span>
                                     <div class="verticalSimpleDynamic hideElement" id="hasGendtKeyArea">
-                                        <input type="text" class="inputText" value="" id="gentdlinkText">
-                                        <button class="pyBt" onclick="copyPublicLinkToClipboard()" id="copyPubLinkBT">Copiar link<i class="fa-solid fa-link"></i></button>
+                                        <a href="" id="gentdlinkText" style="display: flex; flex-direction: column;" target="_blank"> <button class="pyBt">Ver página pública<i class="fa-solid fa-arrow-up-right-from-square"></i></button> </a>
+                                        <button class=" discretBt" onclick="copyPublicLinkToClipboard()" id="copyPubLinkBT">Copiar link<i class="fa-solid fa-link"></i></button>
                                         <button class="discretBt miniBt" onclick="turnPrivateAgain()" id="deletePubLinkBT">Tornar privado novamente<i class="fa-solid fa-lock"></i></button>
                                     </div>
                                     
@@ -242,8 +247,9 @@
                                         <button class="pyBt" onclick="generatePublicLink()" id="genLinkBt">Gerar link público<i class="fa-solid fa-link"></i></button>
                                     </div>
                                 {% endif %}
-
+                                <span class="botSdBar"></span>
                             </div>
+                            
                             <div id="NAVRIGHT_Storage" class="promptLatInfo">
                                 
                                 
@@ -259,16 +265,18 @@
                                     
                                     
                                 {% else %}
+                                <h3 class="titleSdBar">Sincronização</h3>
                                     <div class="discretDivider"></div>
                                     <p>Faça login para sincronizar as atividades em todos os dispositivos!</p>
                                 {% endif %}
-
+                                <span class="botSdBar"></span>
                                 <h3 class="titleSdBar">Armazenamento local</h3>
                                 <span class="infoText okInfo" id="localStatusNAV">
                                     <p>Sempre salvo</p>
                                     <i class="fa-solid fa-hard-drive fa-fade"></i>
                                 </span>
                                 <p id="mblocal"></p>
+                                <span class="botSdBar"></span>
                             </div>
                             
                             

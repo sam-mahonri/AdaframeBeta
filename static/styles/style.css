@@ -17,7 +17,7 @@ body, html{
     text-overflow: ellipsis;
     color: var(--light-text-color);
     font-family: 'Geologica', sans-serif;
-    transition-duration: var(--transition-duration);
+    
     text-align: center;
     scroll-behavior: smooth;
 }
@@ -92,6 +92,7 @@ h2{
 
 .lateralNavComp{
     width: 300px;
+    transition-duration: var(--transition-duration);
 }
 
 
@@ -114,13 +115,13 @@ h2{
 
 @keyframes pulse {
     0%{
-        scale: 110%;
+        opacity: 1;
     }
     50%{
-        scale: 100%;
+        opacity: 0.5;
     }
     100%{
-        scale: 110%;
+        opacity: 1;
     }
 }
 
@@ -135,7 +136,7 @@ h2{
     max-height: 85vh;
     background-color: var(--current-soft-background-color);
     margin-left: 16px;
-    border-radius: 16px;
+    border-radius: 22px;
     margin-top: 16px;
     padding: 8px;
     border: solid 1px var(--discret-border-color);
@@ -171,7 +172,7 @@ h2{
 }
 
 .inputError{
-    border-color: var(--error-color);
+    border-color: var(--error-color) !important;
     box-shadow: 0px 0px 16px var(--error-color); 
     color: var(--error-color);
 }
@@ -218,8 +219,10 @@ h2{
     gap: 8px;
     overflow: hidden;
     max-height: 38px;
+    transition-duration: var(--transition-duration);
 }.titlePost:hover{
     max-height: 128px;
+    transition-duration: var(--transition-duration);
     
 }
 
@@ -276,6 +279,7 @@ h2{
     border-radius: var(--accent-border-radius);
     gap: 16px;
     background-color: var(--current-accent-user-color);
+    transition-duration: var(--transition-duration);
 }
 
 .iconButtons{
@@ -309,9 +313,19 @@ h2{
 
 
 .discretDivider{
-    height: 2px;
+    min-height: 2px;
     width: 100%;
+    min-width: 32px;
     background-color: rgba(255, 255, 255, 0.205);
+    margin-bottom: 16px;
+    margin-top: 16px;
+    border-radius: 4px;
+}
+
+.bigDivider{
+    height: 4px;
+    width: 100%;
+    background-color: var(--current-accent-user-color);
     margin-bottom: 16px;
     margin-top: 16px;
     border-radius: 4px;
@@ -411,9 +425,11 @@ button{
     cursor: pointer;
     border-radius: var(--accent-border-radius);
     border: solid 1px var(--discret-border-color);
+    transition-duration: var(--transition-duration);
 }button:hover{
     box-shadow: 0px 4px 0px var(--current-sec2-user-color);
     translate: 0px -4px;
+    transition-duration: var(--transition-duration);
 }
 
 .text{
@@ -496,9 +512,11 @@ button{
     height: 45px;
     outline: none;
     box-sizing: border-box;
+    transition-duration: var(--transition-duration);
 }.inputText:focus{
     box-shadow: 0px 0px 16px var(--current-accent-user-color);
     background-color: var(--current-sec3-user-color);
+    transition-duration: var(--transition-duration);
 }
 
 form{
@@ -548,6 +566,7 @@ form{
 
 .lateralNavUncomp{
     width: 0px;
+    transition-duration: var(--transition-duration);
 }
 
 @media screen and (max-width: 700px) {
@@ -667,11 +686,21 @@ form{
 }
 
 .titleSdBar{
-    padding: 16px;
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.127), transparent);
+    padding: 12px;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.086), transparent);
     border-radius: var(--accent-border-radius);
     margin-top: 8px;
+    border-top: solid 2px var(--current-accent-user-color);
+    margin-bottom: -4px;
 }
+
+.botSdBar{
+    min-height: 16px;
+    background-image: linear-gradient(to top, rgba(255, 255, 255, 0.152), transparent);
+    border-radius: var(--accent-border-radius);
+    border-bottom: solid 2px var(--current-accent-user-color);
+}
+
 
 .standPanel{
     padding: 28px;

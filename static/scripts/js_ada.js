@@ -64,11 +64,11 @@ function deleteSpace() {
         document.getElementById('NAVRIGHT_Space').classList.add('hideElement')
     }
     document.getElementById('spaceDeleteConfirmation').classList.add('hideElement');
-    if(isLogged){
+    if (isLogged) {
         pfvSinc()
     }
     saveAll()
-    
+
 }
 
 function openMenuMove(selfId) {
@@ -76,7 +76,6 @@ function openMenuMove(selfId) {
     var listPost = document.getElementById('listPost')
     var popMove = document.getElementById('moveAPost')
     var curFrame = idCur.split('_')[1]
-    console.log(curFrame)
     listPost.innerHTML = ''
 
     for (item in userAllContent[espacoAtual].frames) {
@@ -89,7 +88,6 @@ function openMenuMove(selfId) {
             newSpace.id = "MOVE_TO_FRAME__--__NAMEID_$" + item;
             let tof = item
             newSpace.onclick = function () {
-                console.log(tof)
                 movePost(idCur, tof, curFrame);
 
             };
@@ -157,11 +155,11 @@ function novoFrame(nomeFrame) {
             document.getElementById('newFrameTitleText').classList.remove('errorInput');
         }, 1000);
     }
-    if(isLogged){
+    if (isLogged) {
         pfvSinc()
     }
     saveAll()
-    
+
 }
 
 
@@ -172,18 +170,23 @@ function loadFramesFromCurrentSpace() {
     document.getElementById('NAVRIGHT_Space').classList.remove('hideElement')
     document.getElementById('NAVRIGHT_Space').classList.add('openingAnimation')
     document.getElementById('NAVRIGHT_Space').classList.add('promptLatInfo')
-    document.getElementById('genPublicLinkStatusNAV').classList.add('hideElement')
-    keyInput = document.getElementById('gentdlinkText')
 
-    if ("publiclink" in userAllContent[espacoAtual]){
-        document.getElementById('hasGendtKeyArea').classList.remove('hideElement')
-        document.getElementById('hasNOGendtKeyArea').classList.add('hideElement')
-        keyInput.value = userAllContent[espacoAtual]['publiclink']
-    }else{
-        document.getElementById('hasGendtKeyArea').classList.add('hideElement')
-        document.getElementById('hasNOGendtKeyArea').classList.remove('hideElement')
-        keyInput.value = ""
+
+    if (isLogged) {
+        document.getElementById('genPublicLinkStatusNAV').classList.add('hideElement')
+        var keyInput = document.getElementById('gentdlinkText')
+
+        if ("publiclink" in userAllContent[espacoAtual]) {
+            document.getElementById('hasGendtKeyArea').classList.remove('hideElement')
+            document.getElementById('hasNOGendtKeyArea').classList.add('hideElement')
+            keyInput.href = userAllContent[espacoAtual]['publiclink']
+        } else {
+            document.getElementById('hasGendtKeyArea').classList.add('hideElement')
+            document.getElementById('hasNOGendtKeyArea').classList.remove('hideElement')
+            keyInput.href = ""
+        }
     }
+
 
     if (mobile) {
         lateralNavState = [false, false]
@@ -195,6 +198,16 @@ function loadFramesFromCurrentSpace() {
     resetActiveBt()
     theBt.classList.add('pyBt')
     theBt.classList.remove('discretBt')
+
+    console.log(userAllContent[espacoAtual].frames)
+
+    if (Object.keys(userAllContent[espacoAtual].frames).length !== 0) {
+        console.log('cheio')
+        document.getElementById('newFrameHint').classList.add('hideElement')
+    } else {
+        console.log('vazio')
+        document.getElementById('newFrameHint').classList.remove('hideElement')
+    }
 
     for (i in userAllContent[espacoAtual].frames) {
 
@@ -346,7 +359,7 @@ function loadStaticFramesFromPublicSpace() {
             newPost.classList.add('openingAnimation');
             newPost.id = "POST_" + i + "_$" + j;
 
-            
+
 
             const newPostTitle = document.createElement('div');
             newPostTitle.classList.add('titlePost');
@@ -430,11 +443,11 @@ function novoPost(title, descr) {
         document.getElementById('newPostTitleText').value = '';
         document.getElementById('newPostDescrText').value = '';
     }
-    if(isLogged){
+    if (isLogged) {
         pfvSinc()
     }
     saveAll()
-    
+
 }
 
 function selectSpace(selfId) {
@@ -484,12 +497,12 @@ function novoEspaco(nomeEspaco) {
         }, 1000);
     }
 
-    if(isLogged){
+    if (isLogged) {
         pfvSinc()
     }
 
     saveAll()
-    
+
 }
 
 var currentPostPath
@@ -529,11 +542,11 @@ function deletePost() {
         }
         document.getElementById('SCR_$' + currentPostPath[0]).removeChild(document.getElementById(currentPostId).parentNode.parentNode)
     }, 300);
-    if(isLogged){
+    if (isLogged) {
         pfvSinc()
     }
     saveAll()
-    
+
 }
 
 function editPost(title, text) {
@@ -575,11 +588,11 @@ function editPost(title, text) {
             document.getElementById("POSTDESCR_" + currentPostPath[0] + "_$" + currentPostPath[1]).classList.remove('changeMood');
         }, 1000);
     }
-    if(isLogged){
+    if (isLogged) {
         pfvSinc()
     }
     saveAll()
-    
+
 }
 function closeLateral(self) {
     if (self.parentNode.previousElementSibling.id == "lateralLeftNavComp") {
@@ -595,20 +608,32 @@ function lateralOpen(self) {
     if (self.id == "navBtLeft") {
         if (lateralNavState[0]) {
             lateralNavState[0] = false;
-            self.innerHTML = "<i class='fas fa-chevron-left'></i>" + "Espaços <i class='fas fa-calendar-alt'></i>"
+            self.innerHTML = "<i class='fas fa-chevron-left'></i>" + "<i class='fas fa-calendar-alt'></i>"
             document.getElementById('lateralLeftNavComp').classList.remove('lateralNavUncomp');
             document.getElementById('lateralLeftNavComp').nextElementSibling.classList.remove('toLeftAnim');
             document.getElementById('lateralLeftNavComp').nextElementSibling.classList.add('fromLeftAnim');
+            if (mobile){
+                if(!lateralNavState[1]){
+                    lateralNavState[1] = false
+                    lateralOpen(document.getElementById("navBtRight")) 
+                }
+            }
         } else {
             self.innerHTML = "<i class='fas fa-calendar-alt'></i>" +
                 "<i class='fas fa-chevron-right'></i>"
             lateralNavState[0] = true;
             document.getElementById('lateralLeftNavComp').classList.add('lateralNavUncomp');
             document.getElementById('lateralLeftNavComp').nextElementSibling.classList.add('toLeftAnim');
+            if (mobile){
+                if(lateralNavState[1]){
+                    lateralNavState[1] = true
+                    lateralOpen(document.getElementById("navBtRight")) 
+                }
+            }
         }
     } else if (self.id == "navBtRight") {
         if (lateralNavState[1]) {
-            self.innerHTML = "<i class='fas fa-cog'></i>" + "Configurações <i class='fas fa-chevron-right'></i>"
+            self.innerHTML = "<i class='fas fa-cog'></i>" + "<i class='fas fa-chevron-right'></i>"
             lateralNavState[1] = false;
             document.getElementById('lateralRightNavComp').classList.remove('lateralNavUncomp');
             document.getElementById('lateralRightNavComp').nextElementSibling.classList.remove('toRightAnim');
@@ -711,7 +736,7 @@ function objetoParaString(obj, nivel = 0) {
 function saveAll() {
     localStorage.setItem('AdaframeLocal', JSON.stringify(userAllContent));
     setLocalStatus("OK", "Tudo salvo")
-    
+
 }
 function calcularTamanhoEmMB(str) {
     const tamanhoEmBytes = new TextEncoder().encode(str).length;
@@ -733,11 +758,11 @@ function setLocalStatus(type, message) {
     }
 }
 
-function setCloudStatus(type, message, loading=false) {
+function setCloudStatus(type, message, loading = false) {
     var status = document.getElementById('cloudStatusNAV')
-    if (loading){
+    if (loading) {
         status.innerHTML = message + '<i class="fa-solid fa-gear fa-spin"></i>'
-    }else{
+    } else {
         status.innerHTML = message + '<i class="fa-solid fa-hard-drive"></i>'
     }
 
@@ -755,11 +780,11 @@ function setCloudStatus(type, message, loading=false) {
     }
 }
 
-function genLinkStatus(type, message, loading=false) {
+function genLinkStatus(type, message, loading = false) {
     var status = document.getElementById('genPublicLinkStatusNAV')
-    if (loading){
+    if (loading) {
         status.innerHTML = message + '<i class="fa-solid fa-gear fa-spin"></i>'
-    }else{
+    } else {
         status.innerHTML = message + '<i class="fa-solid fa-hard-drive"></i>'
     }
 
@@ -776,7 +801,6 @@ function genLinkStatus(type, message, loading=false) {
         status.classList.add('errorInfo')
     }
 }
-
 
 function verificarTamanhoDaTela() {
     const larguraDaTela = window.innerWidth;
@@ -784,7 +808,7 @@ function verificarTamanhoDaTela() {
     mobile = larguraDaTela <= limiteParaDispositivoMovel
     if (mobile) {
         lateralNavState = [false, false]
-        lateralOpen(document.getElementById('navBtLeft'))
+        //lateralOpen(document.getElementById('navBtLeft'))
         lateralOpen(document.getElementById('navBtRight'))
     }
 }

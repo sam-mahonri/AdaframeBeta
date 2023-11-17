@@ -47,19 +47,34 @@
 
                         <div class="form-group">
                             <span class="horizontalDynamic miniRLabel" ><i class="fa-solid fa-signature"></i>{{ form.username.label(class="labelPc form-control-label") }}</span>
-                            {{ form.username(class="inputText", placeholder="Edite seu nome...") }}
+                            {% if form.username.errors %}
+                                {{ form.username(class="inputText form-control inputError", placeholder="Edite seu nome...") }}
+                                <div class="infoText errInfo" style="margin-top: 8px;">{{ form.username.errors[0] }}</div>
+                            {% else %}
+                                {{ form.username(class="inputText form-control", placeholder="Edite seu nome...") }}
+                            {% endif %}
                         </div>
 
                         
 
                         <div class="form-group">
                             <span class="horizontalDynamic miniRLabel" ><i class="fa-solid fa-key"></i>{{ form.password.label(class="labelPc form-control-label") }}</span>
-                            {{ form.password(class="inputText", placeholder="Se quiser, crie uma nova senha...") }}
+                            {% if form.password.errors %}
+                                {{ form.password(class="inputText form-control inputError", placeholder="Se quiser, crie uma nova senha...") }}
+                                <div class="infoText errInfo" style="margin-top: 8px;">{{ form.password.errors[0] }}</div>
+                            {% else %}
+                                {{ form.password(class="inputText form-control", placeholder="Se quiser, crie uma nova senha...") }}
+                            {% endif %}
                         </div>
 
                         <div class="form-group">
                             <span class="horizontalDynamic miniRLabel" ><i class="fa-solid fa-key"></i>{{ form.confirm_password.label(class="labelPc form-control-label") }}</span>
-                            {{ form.confirm_password(class="inputText", placeholder="Confirme...") }}
+                            {% if form.confirm_password.errors %}
+                                {{ form.confirm_password(class="inputText form-control inputError", placeholder="Confirme sua nova senha...") }}
+                                <div class="infoText errInfo" style="margin-top: 8px;">{{ form.confirm_password.errors[0] }}</div>
+                            {% else %}
+                                {{ form.confirm_password(class="inputText form-control", placeholder="Confirma sua nova senha...") }}
+                            {% endif %}
                         </div>
                         
                         <span class="discretDivider"></span>

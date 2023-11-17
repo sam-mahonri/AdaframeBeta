@@ -29,6 +29,6 @@ class EditProfileForm(FlaskForm):
     username = StringField('Nome de usuário', [validators.DataRequired()])
     current_password = PasswordField('Senha atual', [validators.DataRequired()])
     password = PasswordField('Nova senha')
-    confirm_password = PasswordField('Confirme a nova senha', [validators.EqualTo('password')])
+    confirm_password = PasswordField('Confirme a nova senha', [validators.EqualTo('password', message="As senhas devem ser iguais.")])
     profile_picture = FileField('Nova foto de perfil')
     submit = SubmitField('Save Changes')
