@@ -3,32 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="static/styles/style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" type="image/x-icon" href="static/source/favicon.png">
-    <title>Frames - Adaframe</title>
+    <link href="/static/styles/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/x-icon" href="/static/source/favicon.png">
+    <title>{% if space %} {{ space }} {% endif %} - Adaframe</title>
 </head>
 <body class="randomBack forceNoScroll">
     <div class="todoView verticalDynamic flowerFeelings">
         <div class="verticalDynamic">
             <navbar>
-                <button class="navBt" id="navBtLeft" onclick="lateralOpen(this)">
+                <button class="navBt hideElement" id="navBtLeft" onclick="lateralOpen(this)">
                     <i class="fas fa-chevron-left"></i>
                     <i class="fas fa-calendar-alt"></i>
                 </button>
+
+                    {% if profile_picture %}
+                        <img class="iconTitle" src="data:image/png;base64,{{ profile_picture }}" alt="Profile Picture" style="border-radius: 50%; height: 32px !important; width: 32px !important; margin-left: 16px; margin-right: 8px;">
+                    {% else %}
+                        <img class="iconTitle" src="/static/source/AdaframeLogoWhite.png" style=" height: 32px !important; width: 32px !important;">
+                    {% endif %}
+
+                    {% if username %}
+                        <h6>Por  {{ username }} </h6>
+                    {% endif %}
                 <div class="fillSpace"></div>
-                <img class="navLogo" src="static/source/AdaframeLogoWhite.svg">
-                <b class="titleNav">Adaframe</b>
-                <span class="text" id="navBarSpaceTitle"></span>
+                <img class="navLogo" src="/static/source/AdaframeLogoWhite.svg">
+                <b class="titleNav">{% if space %} {{ space }} {% endif %}</b>
                 <div class="fillSpace"></div>
                 
-                <button class="navBt" id="navBtRight" onclick="lateralOpen(this)">
+                <button class="navBt hideElement" id="navBtRight" onclick="lateralOpen(this)">
                     <i class="fas fa-cog"></i>
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </navbar>
             <div class="innerView horizontalDynamic">
-                <div class="lateralNavComp" id="lateralLeftNavComp"></div>
-                <div class="responsiveNav borderRight fromLeftAnim">
+                <div class="lateralNavComp hideElement" id="lateralLeftNavComp"></div>
+                <div class="responsiveNav borderRight fromLeftAnim hideElement">
                     
                     <div class="overflowHiddenTodo">
                         <div class="lateralNav verticalScroll" id="spaceList">
@@ -48,10 +57,10 @@
                 
                 <div class="fillSpace overflowHiddenTodo">
 
-                    <div class="centerView darkenBack " style="padding: 16px;" id="welcomeScreen">
+                    <div class="centerView darkenBack hideElement" style="padding: 16px;" id="welcomeScreen">
                 
                         <div class="fillSpace"></div>
-                        <img class="iconTitle" src="static/source/AdaframeLogoWhite.svg" style="margin-bottom: -16px;">
+                        <img class="iconTitle" src="/static/source/AdaframeLogoWhite.svg" style="margin-bottom: -16px;">
                         <h1>Adafra.me</h1>
                         <h2>Para começar, crie um quadro e comece a organizá-lo!</h2>
                         <span style="margin-top: 8px"></span>
@@ -84,7 +93,7 @@
                         </div>
                     </div>
 
-                    <div class="horizontalScroll horizontalDynamic darkenBack hideElement" id="theFrames">
+                    <div class="horizontalScroll horizontalDynamic darkenBack" id="theFrames">
                         <div class="framesArea" id="framesArea">
                             <div class="postArea ">
                                 <div class="promptPost">
@@ -103,7 +112,7 @@
                                         <div class="text">
                                             Selecione um espaço que você criou anteriormente!
                                         </div>
-                                        <img class="navLogo" src="static/source/AdaframeLogoWhite.svg">
+                                        <img class="navLogo" src="/static/source/AdaframeLogoWhite.svg">
                                     </div>
                                     
                                     
@@ -111,12 +120,7 @@
                                 
                             </div>
                         </div>
-                        <button class="pyBt newFrameBt hideElement" id="newFrameBtN"  onclick="document.getElementById('newFrameHint').classList.add('hideElement'); openNewFramePrompt();">
-                            Novo Frame<i class="fas fa-plus-circle"></i>
-                            <div class="hintButton" id="newFrameHint">
-                                Agora que você já está no quadro, crie um novo frame!
-                            </div>
-                        </button>
+                        
                         <div class="blurAllScreen hideElement" id="newFramePromptTitle">
                             <div class="centerView">
                                 <div class="simplePrompt">
@@ -196,9 +200,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="lateralNavComp" id="lateralRightNavComp"></div>
+                <div class="lateralNavComp hideElement" id="lateralRightNavComp"></div>
                 
-                <div class="responsiveNav borderLeft fromRightAnim">
+                <div class="responsiveNav borderLeft fromRightAnim hideElement">
                     
                     <div class="overflowHiddenTodo">
                         <div class="lateralNav verticalScroll">
@@ -206,7 +210,7 @@
                                 {% if profile_picture %}
                                     <img class="iconTitle" src="data:image/png;base64,{{ profile_picture }}" alt="Profile Picture" style="border-radius: 50%; height: 48px !important; width: 48px !important;">
                                 {% else %}
-                                    <img class="iconTitle" src="static/source/AdaframeLogoWhite.png" style=" height: 48px !important; width: 48px !important;">
+                                    <img class="iconTitle" src="/static/source/AdaframeLogoWhite.png" style=" height: 48px !important; width: 48px !important;">
                                 {% endif %}
 
                                 {% if username %}
@@ -239,7 +243,7 @@
                                     
                                     <div class="verticalSimpleDynamic" id="hasNOGendtKeyArea">
                                         
-                                        <button class="pyBt" onclick="generatePublicLink()" id="genLinkBt">Gerar link público<i class="fa-solid fa-link"></i></button>
+                                        <button class="discretBt" onclick="generatePublicLink()" id="genLinkBt">Gerar link público<i class="fa-solid fa-link"></i></button>
                                     </div>
                                 {% endif %}
 
@@ -255,7 +259,7 @@
                                         <i class="fa-solid fa-circle-notch fa-spin"></i>
                                     </span>
                                     <button class="pyBt" onclick="pfvSinc()" id="syncBt">Sincronizar<i class="fa-solid fa-server" ></i></button>
-                                    <h6>Sincronizamos automaticamente a cada alteração</h6>
+                                    <h6>Sincronizamos automaticamente a cada 15 segundos</h6>
                                     
                                     
                                 {% else %}
@@ -280,16 +284,16 @@
                 </div>
             </div>
 
-            <script src="static/scripts/js_ada.js"></script>
-            {% if username %}
-                <script>isLogged = true</script>
-                <script src="static/scripts/sync.js"></script>
-                <script>pfvSincAqui()</script>
-            {% else %}
-                <script>
-                    loadAtStartup()
-                </script>
+            <script src="/static/scripts/js_ada.js"></script>
+            {% if content and space %}
+            <script>
+                console.log('{{ content | safe }}');
+                userAllContent = JSON.parse('{{ content | safe }}');
+                espacoAtual = '{{ space }}';
+            </script>
             {% endif %}
+            <script>loadStaticFramesFromPublicSpace()</script>
+
 
             
         </div>

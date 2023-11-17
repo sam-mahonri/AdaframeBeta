@@ -22,6 +22,10 @@ body, html{
     scroll-behavior: smooth;
 }
 
+body{
+    transition-duration: 0s !important;
+}
+
 h1, h2, h3, h4, h5, h6{
     margin: 0px;
 }
@@ -53,7 +57,7 @@ h2{
 }
 
 .flowerFeelings{
-    background-image: url('https://picsum.photos/1280/720');
+    background-image: url('https://picsum.photos/1300/720');
     background-size: cover;
     background-position: center;
 }
@@ -78,7 +82,7 @@ h2{
     padding: 16px;
     padding-top: 72px;
     backdrop-filter: blur(8px);
-    width: 280px;
+    width: 300px;
     background-color: var(--current-soft-background-color);
     box-shadow: 0px 0px 16px var(--current-soft-background-color);
     box-sizing: border-box;
@@ -87,7 +91,7 @@ h2{
 }
 
 .lateralNavComp{
-    width: 280px;
+    width: 300px;
 }
 
 
@@ -125,8 +129,8 @@ h2{
     justify-content: center;
     align-items: stretch;
     flex-direction: column;
-    max-width: 280px;
-    min-width: 280px;
+    max-width: 300px;
+    min-width: 300px;
     min-height: 64px;
     max-height: 85vh;
     background-color: var(--current-soft-background-color);
@@ -357,12 +361,13 @@ navbar{
     display: flex;
     flex-direction: column;
     height: 100vh;
+    transition-duration: 0s !important;
 }
 
 .horizontalDynamic{
     display: flex;
     flex-direction: row;
-    
+    transition-duration: 0s !important;
     
 }
 
@@ -379,6 +384,7 @@ navbar{
     align-items: center;
     gap: 8px;
     box-sizing: border-box;
+    transition-duration: 0s !important;
 }
 
 body{
@@ -453,7 +459,7 @@ button{
 }
 
 .hideElement{
-    display: none;
+    display: none !important;
 }
 
 .blurAllScreen{
@@ -574,7 +580,7 @@ form{
 
 @keyframes fromRight {
     from{
-        translate: 280px 0px;
+        translate: 300px 0px;
     }
     to{
         translate: 0px 0px;
@@ -586,7 +592,7 @@ form{
         translate: 0px 0px;
     }
     to{
-        translate: 280px 0px;
+        translate: 300px 0px;
     }
 }
 
@@ -599,7 +605,7 @@ form{
 
 @keyframes fromLeft {
     from{
-        translate: -280px 0px;
+        translate: -300px 0px;
     }
     to{
         translate: 0px 0px;
@@ -611,7 +617,7 @@ form{
         translate: 0px 0px;
     }
     to{
-        translate: -280px 0px;
+        translate: -300px 0px;
     }
 }
 
@@ -668,7 +674,7 @@ form{
 }
 
 .standPanel{
-    padding: 32px;
+    padding: 28px;
     border-radius: var(--accent-border-radius);
     display: flex;
     justify-content: center;
@@ -754,4 +760,11 @@ form{
     object-position: center;
     margin: 8px;
     border-radius: 50%;
+}
+
+.verticalSimpleDynamic{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    
 }

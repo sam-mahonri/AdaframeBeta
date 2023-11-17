@@ -1,11 +1,13 @@
 from flask import Flask, render_template, redirect, url_for, session, flash, request, jsonify, send_file
 from flask_wtf import CSRFProtect
 from forms import LoginForm, RegistrationForm, EditProfileForm
-
+import json
 import base64
 from services.preimage import preprocess_image
 from services.init_redis import redis_client
 from services.samenv import get
+from services.genkey import gen_newkey
+from collections import OrderedDict
 
 app = Flask(__name__)
 app.secret_key = get('PHYSALIS_KEY')
@@ -150,8 +152,11 @@ def sync_server():
     email = session['email']
     current_password = session.get('password', '')
     user_data = redis_client.hgetall(email)
-
+    
     if current_password == user_data.get('password'):
+        data_get = str(data_get)
+        data_get = data_get
+
         redis_client.hset(email, 'spaces', str(data_get))
         return jsonify({"OK":"Sucesso ao enviar para o servidor!"})
     else:
@@ -175,6 +180,107 @@ def sync_client():
 @app.route('/favicon.ico', methods=['GET'])
 def getfavicon():
     return send_file('static/source/favicon.png')
+
+@app.route('/generate_link/<spcname>', methods=['GET'])
+def gen_link(spcname):
+    if 'email' not in session:
+        return redirect(url_for('login'))
+
+    email = session['email']
+    current_password = session.get('password', '')
+    user_data = redis_client.hgetall(email)
+
+    if current_password == user_data.get('password'):
+        saved_data = user_data.get("spaces", "{}")
+        json_space = json.loads(saved_data)
+        space_con = json_space.get(spcname, 'ERROR')
+
+        if space_con == 'ERROR':
+            return jsonify({"ERROR":"Não há este espaço..."})
+
+        linkassoc = session['email'] + "(&***&)" + spcname
+
+        newkey = gen_newkey()
+
+        redis_client.hset('public', newkey, linkassoc)
+
+        the_link = get('PHYSALIS_URL') + 'space/' + newkey
+
+        return jsonify({"OK": "Espaço obtido", "link":the_link, "key":newkey})
+    else:
+        return jsonify({"ERROR":"Faça login novamente..."})
+
+@app.route('/space/<key>', methods=['GET'])
+def get_public_space(key):
+    publicAll = redis_client.hgetall('public')
+    allcred = publicAll.get(key, 'ERROR')
+
+    if allcred == "ERROR":
+        return render_template('404.html', error="Este link de espaço público não existe..."), 404
+
+    cred = allcred.split('(&***&)')
+
+    emailProp = cred[0]
+    spaceProp = cred[1]
+
+    emailData = redis_client.hgetall(emailProp)
+    user_data = redis_client.hgetall(emailProp)
+    username = user_data.get('username', 'Username não encontrado')
+    profile_picture = user_data.get('profile_picture', None)
+
+    saved_data = emailData.get("spaces", "{}")
+    json_space = json.loads(saved_data)
+    space_con = json_space.get(spaceProp, 'ERROR')
+
+    if space_con == 'ERROR':
+        return render_template('404.html', error="O link deste espaço existe, mas parece que o espaço foi excluído..."), 404
+
+    
+
+    prSC = json.dumps(space_con, ensure_ascii=False)
+    print(prSC)
+    prSC = prSC.replace('\\n', '<br>')
+    prSC = prSC.replace("\\'", "\u0027")
+    seSC = json.loads(prSC)
+
+    theoutput = OrderedDict()
+    theoutput[spaceProp] = seSC
+
+    outputs = json.dumps(theoutput)
+
+    return render_template("frames_public.html", content=outputs, space=spaceProp, username=username, profile_picture=profile_picture)
+
+@app.route('/deletelink/<key>', methods=['GET'])
+def remove_link(key):
+    if 'email' not in session:
+        return jsonify({"ERROR":"Faça login novamente..."})
+        #return redirect(url_for('login'))
+
+    email = session['email']
+    current_password = session.get('password', '')
+    user_data = redis_client.hgetall(email)
+
+    if current_password == user_data.get('password'):
+
+        publicAll = redis_client.hgetall('public')
+        allcred = publicAll.get(key, 'ERROR')
+
+        cred = allcred.split('(&***&)')
+
+        emailProp = cred[0]
+
+        if email == emailProp:
+            redis_client.hdel('public', str(key))
+            return jsonify({"OK":"Chave excluída com êxito!"})
+        else:
+            return jsonify({"ERROR":"Você não tem permissão para excluir este link!"}), 429
+    else:
+        return jsonify({"ERROR":"Faça login novamente..."})
+
+@app.errorhandler(404)
+def notfound(error):
+    return render_template('404.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

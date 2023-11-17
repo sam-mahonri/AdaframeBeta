@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 Adaframe - Oi?</title>
-    <link rel="icon" type="image/x-icon" href="./source/favicon.png">
-    <link href="./styles/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/x-icon" href="/static/source/favicon.png">
+    <link href="/static/styles/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     
     <div class="centerView">
         <div class="expandFit"></div>
         <h1>404</h1>
+        {% if error %}
+            <p>{{ error }}</p>
+        {% endif %}
         <h6 style="opacity: 0.5;">Adaframe</h6>
-        <a href="/frames"><button class="pyBt">Home</button></a>
+        <a href="/"><button class="pyBt">Voltar ao início <i class="fa-solid fa-house"></i></button></a>
     </div>
 </body>
 </html>

@@ -3,6 +3,8 @@ var frameAtual = "Primeiro frame"
 var mobile = false
 var userAllContent = {
 }
+var isLogged = false
+
 function openNewSpacePrompt() {
     document.getElementById('newSpacePromptTitle').classList.remove('hideElement');
     document.getElementById('newSpacePromptTitle').classList.add('openingAnimation')
@@ -62,7 +64,11 @@ function deleteSpace() {
         document.getElementById('NAVRIGHT_Space').classList.add('hideElement')
     }
     document.getElementById('spaceDeleteConfirmation').classList.add('hideElement');
+    if(isLogged){
+        pfvSinc()
+    }
     saveAll()
+    
 }
 
 function openMenuMove(selfId) {
@@ -151,7 +157,11 @@ function novoFrame(nomeFrame) {
             document.getElementById('newFrameTitleText').classList.remove('errorInput');
         }, 1000);
     }
+    if(isLogged){
+        pfvSinc()
+    }
     saveAll()
+    
 }
 
 
@@ -162,6 +172,18 @@ function loadFramesFromCurrentSpace() {
     document.getElementById('NAVRIGHT_Space').classList.remove('hideElement')
     document.getElementById('NAVRIGHT_Space').classList.add('openingAnimation')
     document.getElementById('NAVRIGHT_Space').classList.add('promptLatInfo')
+    document.getElementById('genPublicLinkStatusNAV').classList.add('hideElement')
+    keyInput = document.getElementById('gentdlinkText')
+
+    if ("publiclink" in userAllContent[espacoAtual]){
+        document.getElementById('hasGendtKeyArea').classList.remove('hideElement')
+        document.getElementById('hasNOGendtKeyArea').classList.add('hideElement')
+        keyInput.value = userAllContent[espacoAtual]['publiclink']
+    }else{
+        document.getElementById('hasGendtKeyArea').classList.add('hideElement')
+        document.getElementById('hasNOGendtKeyArea').classList.remove('hideElement')
+        keyInput.value = ""
+    }
 
     if (mobile) {
         lateralNavState = [false, false]
@@ -261,6 +283,94 @@ function loadFramesFromCurrentSpace() {
 
 }
 
+function loadStaticFramesFromPublicSpace() {
+    document.getElementById('framesArea').innerHTML = "";
+
+
+    if (mobile) {
+        lateralNavState = [false, false]
+        lateralOpen(document.getElementById('navBtLeft'))
+        lateralOpen(document.getElementById('navBtRight'))
+    }
+
+    for (i in userAllContent[espacoAtual].frames) {
+
+
+
+        const newFrame = document.createElement('div');
+        const newFramePrompt = document.createElement('div');
+        const newFrameTitle = document.createElement('span');
+        const newPostsScroll = document.createElement('div');
+        const newNewPost = document.createElement('button');
+
+        newFrame.classList.add('postArea');
+        newFrame.classList.add('openingAnimation')
+        newFramePrompt.classList.add('promptPost');
+        newFrameTitle.classList.add('frameTitle');
+        newFrameTitle.innerHTML = i;
+        newNewPost.classList.add('pyBt');
+        newNewPost.innerHTML = "Novo post <i class='fas fa-plus-circle'></i>"
+        newPostsScroll.classList.add('verticalScroll');
+        newPostsScroll.classList.add('hideElement');
+        newPostsScroll.id = "SCR_$" + i
+        newNewPost.id = "FRAME_$" + i
+        newNewPost.onclick = function () {
+            openNewPostPrompt(this.id);
+        };
+
+
+
+
+        newFramePrompt.appendChild(newFrameTitle);
+        //newFramePrompt.appendChild(newNewPost);
+
+
+        newFrame.appendChild(newFramePrompt);
+        newFrame.appendChild(newPostsScroll);
+
+        document.getElementById('framesArea').appendChild(newFrame);
+        document.getElementById('theFrames').scrollTo(document.getElementById('theFrames').scrollWidth, 0);
+
+        for (j in userAllContent[espacoAtual].frames[i]) {
+
+            newPostsScroll.classList.remove('hideElement');
+            var title = j;
+            var descr = userAllContent[espacoAtual].frames[i][j]['contentText'];
+
+            if (userAllContent[espacoAtual].frames[i][j].hasOwnProperty("newTitle")) {
+                title = userAllContent[espacoAtual].frames[i][j]['newTitle']
+            }
+
+            const newPost = document.createElement('div');
+            newPost.classList.add('post');
+            newPost.classList.add('openingAnimation');
+            newPost.id = "POST_" + i + "_$" + j;
+
+            
+
+            const newPostTitle = document.createElement('div');
+            newPostTitle.classList.add('titlePost');
+            newPostTitle.id = "POSTTITLE_" + i + "_$" + j;
+            newPostTitle.innerHTML = title;
+
+
+
+            const newPostContext = document.createElement('div');
+            newPostContext.classList.add('text');
+            newPostContext.id = "POSTDESCR_" + i + "_$" + j
+            newPostContext.innerHTML = descr.replace(/\n/g, '<br>');
+
+            newPost.appendChild(newPostTitle);
+            newPost.appendChild(newPostContext);
+
+            document.getElementById('SCR_$' + i).appendChild(newPost);
+        }
+
+    };
+
+}
+
+
 function novoPost(title, descr) {
     var selfName = currentPostId.split('$')[1];
     var err_form = 0;
@@ -320,7 +430,11 @@ function novoPost(title, descr) {
         document.getElementById('newPostTitleText').value = '';
         document.getElementById('newPostDescrText').value = '';
     }
+    if(isLogged){
+        pfvSinc()
+    }
     saveAll()
+    
 }
 
 function selectSpace(selfId) {
@@ -370,8 +484,12 @@ function novoEspaco(nomeEspaco) {
         }, 1000);
     }
 
-    saveAll()
+    if(isLogged){
+        pfvSinc()
+    }
 
+    saveAll()
+    
 }
 
 var currentPostPath
@@ -399,7 +517,7 @@ function openEditPost(self) {
         document.getElementById('editPostTitleText').value = (document.getElementById("POSTTITLE_" + currentPostPath[0] + "_$" + currentPostPath[1]).innerHTML).split('<')[0]
     }
     document.getElementById('editPostDescrText').value = userAllContent[espacoAtual].frames[currentPostPath[0]][currentPostPath[1]]['contentText']
-    saveAll()
+
 }
 function deletePost() {
     delete userAllContent[espacoAtual].frames[currentPostPath[0]][currentPostPath[1]]
@@ -411,7 +529,11 @@ function deletePost() {
         }
         document.getElementById('SCR_$' + currentPostPath[0]).removeChild(document.getElementById(currentPostId).parentNode.parentNode)
     }, 300);
+    if(isLogged){
+        pfvSinc()
+    }
     saveAll()
+    
 }
 
 function editPost(title, text) {
@@ -453,7 +575,11 @@ function editPost(title, text) {
             document.getElementById("POSTDESCR_" + currentPostPath[0] + "_$" + currentPostPath[1]).classList.remove('changeMood');
         }, 1000);
     }
+    if(isLogged){
+        pfvSinc()
+    }
     saveAll()
+    
 }
 function closeLateral(self) {
     if (self.parentNode.previousElementSibling.id == "lateralLeftNavComp") {
@@ -585,6 +711,7 @@ function objetoParaString(obj, nivel = 0) {
 function saveAll() {
     localStorage.setItem('AdaframeLocal', JSON.stringify(userAllContent));
     setLocalStatus("OK", "Tudo salvo")
+    
 }
 function calcularTamanhoEmMB(str) {
     const tamanhoEmBytes = new TextEncoder().encode(str).length;
@@ -627,6 +754,29 @@ function setCloudStatus(type, message, loading=false) {
         status.classList.add('errorInfo')
     }
 }
+
+function genLinkStatus(type, message, loading=false) {
+    var status = document.getElementById('genPublicLinkStatusNAV')
+    if (loading){
+        status.innerHTML = message + '<i class="fa-solid fa-gear fa-spin"></i>'
+    }else{
+        status.innerHTML = message + '<i class="fa-solid fa-hard-drive"></i>'
+    }
+
+    status.classList.remove('okInfo')
+    status.classList.remove('warnInfo')
+    status.classList.remove('errorInfo')
+    if (type == "OK") {
+        status.innerHTML = message + '<i class="fa-regular fa-thumbs-up"></i>'
+        status.classList.add('okInfo')
+    } else if (type == "WARN") {
+        status.classList.add('warnInfo')
+    } else if (type == "ERR") {
+        status.innerHTML = message + '<i class="fa-solid fa-bug"></i>'
+        status.classList.add('errorInfo')
+    }
+}
+
 
 function verificarTamanhoDaTela() {
     const larguraDaTela = window.innerWidth;
