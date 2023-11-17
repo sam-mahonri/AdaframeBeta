@@ -4,54 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="static/source/favicon.png">
+    <link href="static/styles/style.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
-    <div class="container">
-        <h2>Cadastro</h2>
+<body class="defBack">
+    <div class="todoView horizontalDynamic">
+        <div class="maxmax darkenBack">
+            <div class="verticalScroll">
+                <div class="standPanel">
+                    <img class="iconTitle" src="static/source/AdaframeLogoWhite.png" style="height: 64px;">
+                    <h1 style="margin-bottom: 16px;">Cadastro</h1>
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <ul class="list-group">
-                    {% for category, message in messages %}
-                        <li class="list-group-item list-group-item-{{ 'success' if category == 'success' else 'danger' }}">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <span class="infoText {{ 'okInfo' if category == 'success' else 'errInfo' }}">{{ message }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <p>Já possui conta? </p>
+                    <button class="discretBt miniBt" onclick="window.location.href = '/login'">Entrar<i class="fa-solid fa-right-to-bracket"></i></button>
 
-        <form method="post" action="/cadastro" enctype="multipart/form-data">
-            {{ form.csrf_token }}
-            <div class="form-group">
-                {{ form.username.label(class="form-control-label") }}
-                {{ form.username(class="form-control") }}
+                    <span class="discretDivider"></span>
+
+                    <form method="post" action="/cadastro" enctype="multipart/form-data">
+                        {{ form.csrf_token }}
+                        <div class="form-group">
+                            {{ form.username.label(class="labelPc form-control-label") }}
+                            {{ form.username(class="inputText form-control") }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.email.label(class="labelPc form-control-label") }}
+                            {{ form.email(class="inputText form-control") }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.password.label(class="labelPc form-control-label") }}
+                            {{ form.password(class="inputText form-control") }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.confirm_password.label(class="labelPc form-control-label") }}
+                            {{ form.confirm_password(class="inputText form-control") }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.profile_picture.label(class="labelPc form-control-label") }}
+                            {{ form.profile_picture(class="inputText form-control-file") }}
+                        </div>
+
+
+
+                        <button type="submit" class="btn btn-primary">Realizar cadastro <i class="fa-solid fa-square-up-right"></i></button>
+                    </form>
+                    <button class="discretBt miniBt" style="margin-top: 16px;" onclick="window.location.href='/' ">Voltar ao inicio <i class="fa-solid fa-house"></i></button>
+                    
+                </div>
             </div>
-
-            <div class="form-group">
-                {{ form.email.label(class="form-control-label") }}
-                {{ form.email(class="form-control") }}
-            </div>
-
-            <div class="form-group">
-                {{ form.password.label(class="form-control-label") }}
-                {{ form.password(class="form-control") }}
-            </div>
-
-            <div class="form-group">
-                {{ form.confirm_password.label(class="form-control-label") }}
-                {{ form.confirm_password(class="form-control") }}
-            </div>
-
-            <!-- Adicionando campo de upload para a foto de perfil -->
-            <div class="form-group">
-                {{ form.profile_picture.label(class="form-control-label") }}
-                {{ form.profile_picture(class="form-control-file") }}
-            </div>
-
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
-        </form>
-
-        <p>Já tem uma conta? <a href="/login">Faça login</a></p>
+        </div>
+        <div class="centerView maxmax hideMob"></div>
     </div>
+
 </body>
 </html>

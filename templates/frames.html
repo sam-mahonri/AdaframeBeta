@@ -209,7 +209,7 @@
                                     <p>Olá, {{ username.split(' ')[0] }}!</p>
                                     <span class="horizontalDynamic" style="gap: 8px;">
                                         <a href="/editar_perfil"><button class="pyBt miniBt">Editar perfil<i class="fa-solid fa-user-pen"></i></button></a>
-                                        <a href="/logout"><button class="discretBt miniBt">Sair<i class="fa-solid fa-right-from-bracket"></i></button></a>
+                                        <button class="discretBt miniBt" onclick="logout()">Sair<i class="fa-solid fa-right-from-bracket"></i></button>
                                     </span>
                                     
                                 {% else %}
@@ -217,35 +217,39 @@
                                 {% endif %}
                                 
                             </div>
-                            
-                            <div id="NAVRIGHT_Storage" class="promptLatInfo">
-                                
-                                <h3 class="titleSdBar">Armazenamento</h3>
-                                
-                                <p>Armazenamento local</p>
-                                <span class="infoText okInfo" id="localStatusNAV">
-                                    <p>Sempre salvo</p>
-                                    <i class="fa-solid fa-hard-drive"></i>
-                                </span>
-                                <p id="mblocal"></p>
-                                {% if username %}
-                                    <div class="discretDivider"></div>
-
-                                    <p>Armazenamento na núvem</p>
-                                    <span class="infoText warnInfo" id="cloudStatusNAV">
-                                        <p>Indisponível</p>
-                                        <i class="fa-solid fa-tornado"></i>
-                                    </span>
-                                {% else %}
-                                    <p>Faça login para sincronizar as atividades!</p>
-                                {% endif %}
-                            </div>
                             <div id="NAVRIGHT_Space" class=" hideElement">
                                 <h3 class="titleSdBar">Este espaço</h3>
                                 
                                 <button class="pyBt redBt" onclick="openDeleteSpaceConfirmation()">Remover espaço<i class="fas fa-tools"></i></button>
                                 
                             </div>
+                            <div id="NAVRIGHT_Storage" class="promptLatInfo">
+                                
+                                
+                                {% if username %}
+
+                                    <h3 class="titleSdBar">Nuvem</h3>
+                                    <span class="infoText" id="cloudStatusNAV">
+                                        <p>Aguardando...</p>
+                                        <i class="fa-solid fa-circle-notch fa-spin"></i>
+                                    </span>
+                                    <button class="pyBt" onclick="pfvSinc()" id="syncBt">Sincronizar<i class="fa-solid fa-server" ></i></button>
+                                    <h6>Sincronizamos automaticamente a cada 10 segundos</h6>
+                                    
+                                    
+                                {% else %}
+                                    <div class="discretDivider"></div>
+                                    <p>Faça login para sincronizar as atividades em todos os dispositivos!</p>
+                                {% endif %}
+
+                                <h3 class="titleSdBar">Armazenamento local</h3>
+                                <span class="infoText okInfo" id="localStatusNAV">
+                                    <p>Sempre salvo</p>
+                                    <i class="fa-solid fa-hard-drive fa-fade"></i>
+                                </span>
+                                <p id="mblocal"></p>
+                            </div>
+                            
                             
                         </div>
                     </div>
@@ -256,9 +260,16 @@
             </div>
 
             <script src="static/scripts/js_ada.js"></script>
-            <script>
-                loadAtStartup()
-            </script>
+            {% if username %}
+                <script src="static/scripts/sync.js"></script>
+                <script>pfvSincAqui()</script>
+            {% else %}
+                <script>
+                    loadAtStartup()
+                </script>
+            {% endif %}
+
+            
         </div>
         <div class="rainbow"></div>
     </div>

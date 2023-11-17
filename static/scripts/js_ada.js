@@ -160,6 +160,7 @@ function loadFramesFromCurrentSpace() {
     document.getElementById('framesArea').innerHTML = "";
     document.getElementById('newFrameBtN').classList.remove('hideElement')
     document.getElementById('NAVRIGHT_Space').classList.remove('hideElement')
+    document.getElementById('NAVRIGHT_Space').classList.add('openingAnimation')
     document.getElementById('NAVRIGHT_Space').classList.add('promptLatInfo')
 
     if (mobile) {
@@ -167,7 +168,6 @@ function loadFramesFromCurrentSpace() {
         lateralOpen(document.getElementById('navBtLeft'))
         lateralOpen(document.getElementById('navBtRight'))
     }
-
 
     var theBt = document.getElementById("SPACES_BUTTON__--__NAMEID_$" + espacoAtual)
     resetActiveBt()
@@ -469,8 +469,7 @@ function lateralOpen(self) {
     if (self.id == "navBtLeft") {
         if (lateralNavState[0]) {
             lateralNavState[0] = false;
-            self.innerHTML = "<i class='fas fa-chevron-left'></i>" +
-                "<i class='fas fa-calendar-alt'></i>"
+            self.innerHTML = "<i class='fas fa-chevron-left'></i>" + "Espaços <i class='fas fa-calendar-alt'></i>"
             document.getElementById('lateralLeftNavComp').classList.remove('lateralNavUncomp');
             document.getElementById('lateralLeftNavComp').nextElementSibling.classList.remove('toLeftAnim');
             document.getElementById('lateralLeftNavComp').nextElementSibling.classList.add('fromLeftAnim');
@@ -483,8 +482,7 @@ function lateralOpen(self) {
         }
     } else if (self.id == "navBtRight") {
         if (lateralNavState[1]) {
-            self.innerHTML = "<i class='fas fa-cog'></i>" +
-                "<i class='fas fa-chevron-right'></i>"
+            self.innerHTML = "<i class='fas fa-cog'></i>" + "Configurações <i class='fas fa-chevron-right'></i>"
             lateralNavState[1] = false;
             document.getElementById('lateralRightNavComp').classList.remove('lateralNavUncomp');
             document.getElementById('lateralRightNavComp').nextElementSibling.classList.remove('toRightAnim');
@@ -607,6 +605,29 @@ function setLocalStatus(type, message) {
         status.classList.add('errorInfo')
     }
 }
+
+function setCloudStatus(type, message, loading=false) {
+    var status = document.getElementById('cloudStatusNAV')
+    if (loading){
+        status.innerHTML = message + '<i class="fa-solid fa-gear fa-spin"></i>'
+    }else{
+        status.innerHTML = message + '<i class="fa-solid fa-hard-drive"></i>'
+    }
+
+    status.classList.remove('okInfo')
+    status.classList.remove('warnInfo')
+    status.classList.remove('errorInfo')
+    if (type == "OK") {
+        status.innerHTML = message + '<i class="fa-regular fa-thumbs-up"></i>'
+        status.classList.add('okInfo')
+    } else if (type == "WARN") {
+        status.classList.add('warnInfo')
+    } else if (type == "ERR") {
+        status.innerHTML = message + '<i class="fa-solid fa-bug"></i>'
+        status.classList.add('errorInfo')
+    }
+}
+
 function verificarTamanhoDaTela() {
     const larguraDaTela = window.innerWidth;
     const limiteParaDispositivoMovel = 768;

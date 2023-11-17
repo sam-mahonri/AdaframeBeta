@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, session, flash
+from flask import Flask, render_template, redirect, url_for, session, flash, request, jsonify, send_file
 from flask_wtf import CSRFProtect
 from forms import LoginForm, RegistrationForm, EditProfileForm
 
@@ -39,6 +39,7 @@ def login():
         user_data = redis_client.hgetall(email)
         if user_data and user_data['password'] == password:
             session['email'] = email
+            session['password'] = password
             return redirect(url_for('index'))
 
         flash('Credenciais inválidas. Tente novamente.', 'danger')
@@ -80,6 +81,7 @@ def cadastro():
 @app.route('/logout')
 def logout():
     session.pop('email', None)
+    session.pop('password', None)
     return redirect(url_for('index'))
 
 # Página de edição de perfil
@@ -134,6 +136,45 @@ def frames_area():
         profile_picture = user_data.get('profile_picture', None)
 
     return render_template('frames.html', username=username, profile_picture=profile_picture)
+
+@app.route('/sync_server', methods=['GET'])
+def sync_server():
+    if 'email' not in session:
+        return redirect(url_for('login'))
+
+    data_get = request.args.get('data', '')
+
+    if len(data_get) > 12000:
+        return jsonify({"ERROR":"Você excedeu o limite de espaço reservado para você!"})
+
+    email = session['email']
+    current_password = session.get('password', '')
+    user_data = redis_client.hgetall(email)
+
+    if current_password == user_data.get('password'):
+        redis_client.hset(email, 'spaces', str(data_get))
+        return jsonify({"OK":"Sucesso ao enviar para o servidor!"})
+    else:
+        return jsonify({"ERROR":"Faça login novamente..."})
+
+@app.route('/sync_client', methods=['GET'])
+def sync_client():
+    if 'email' not in session:
+        return redirect(url_for('login'))
+
+    email = session['email']
+    current_password = session.get('password', '')
+    user_data = redis_client.hgetall(email)
+
+    if current_password == user_data.get('password'):
+        saved_data = user_data.get('spaces', {})
+        return jsonify({"OK": "Sucesso ao receber dados do servidor!", "data": saved_data})
+    else:
+        return jsonify({"ERROR":"Faça login novamente..."})
+
+@app.route('/favicon.ico', methods=['GET'])
+def getfavicon():
+    return send_file('static/source/favicon.png')
 
 if __name__ == '__main__':
     app.run(debug=True)

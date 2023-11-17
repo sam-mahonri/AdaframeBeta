@@ -280,7 +280,7 @@ h2{
     padding-right: 16px;
     justify-content: start;
     align-items: start;
-    
+
 }
 
 .verticalScroll{
@@ -293,6 +293,7 @@ h2{
     padding: 4px;
     padding-bottom: 5px;
     border: none;
+    border-radius: 16px;
 }
 
 
@@ -552,6 +553,10 @@ form{
     .titleNav{
         display: none;
     }
+
+    .hideMob{
+        display: none !important;
+    }
 }
 
 .fromRightAnim{
@@ -654,4 +659,47 @@ form{
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.127), transparent);
     border-radius: var(--accent-border-radius);
     margin-top: 8px;
+}
+
+.standPanel{
+    padding: 32px;
+    border-radius: var(--accent-border-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 300px;
+    width: 300px;
+}
+
+.labelPc{
+    margin: 8px;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.maxmax{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+.miniRLabel{
+    justify-content: center;
+    align-items: center;
+}
+
+.img-thumbnail{
+    border-radius: 16px;
 }

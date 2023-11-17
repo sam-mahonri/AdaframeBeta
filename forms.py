@@ -14,7 +14,7 @@ class RegistrationForm(FlaskForm):
         validators.DataRequired(),
         validators.EqualTo('password', message='As senhas devem ser iguais.')
     ])
-    profile_picture = FileField('Profile Picture')
+    profile_picture = FileField('Foto de perfil')
     submit = SubmitField('Cadastrar')
 
 class EditProfileForm(FlaskForm):
@@ -22,5 +22,5 @@ class EditProfileForm(FlaskForm):
     current_password = PasswordField('Senha atual', [validators.DataRequired()])
     password = PasswordField('Nova senha')
     confirm_password = PasswordField('Confirme a nova senha', [validators.EqualTo('password')])
-    profile_picture = FileField('Profile Picture')
+    profile_picture = FileField('Foto de perfil')
     submit = SubmitField('Save Changes')
