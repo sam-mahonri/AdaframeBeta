@@ -3,7 +3,7 @@ Adaframe foi um protótipo de um sistema de gerenciamento de projetos, onde era 
 O projeto foi abandonado por ter sido algo escolar, mas para ficar de lembrança, tá aí.
 
 ## Problemas de segurança
-Como eu estava começando na programação de back/front, eu não tinha me preocupado tanto com algumas questões de segurança básica, como hash de senhas, confirmação de dominios e rate limit, algo que eu poderia ter feito.
+Como eu estava começando na programação de back/front, eu não tinha me preocupado tanto com algumas questões de segurança básica, como hash de senhas, confirmação de emails e rate limit, algo que eu poderia ter feito.
 
 ## Como esse sistema poderia ser recriado do zero?
 Este projeto foi feito em Javascript Vanilla, puro, todas as interações ocorriam em um "SPA", feito do zero, sem framework, esse projeto poderia ser reescrito do zero usando frameworks como NextJS, Angular, NuxtJS etc.
