@@ -6,7 +6,7 @@ O projeto foi abandonado por ter sido algo escolar, mas para ficar de lembrança
 Como eu estava começando na programação de back/front, eu não tinha me preocupado tanto com algumas questões de segurança básica, como hash de senhas, confirmação de emails e rate limit, algo que eu poderia ter feito.
 
 ## Como esse sistema poderia ser recriado do zero?
-Este projeto foi feito em Javascript Vanilla, puro, todas as interações ocorriam em um "SPA", feito do zero, sem framework, esse projeto poderia ser reescrito do zero usando frameworks como NextJS, Angular, NuxtJS etc.
+Este projeto tem um backend Python + Flask e frontend feito em Javascript Vanilla, puro, todas as interações ocorriam em um "SPA", feito do zero, sem framework, esse projeto poderia ser reescrito do zero usando frameworks fullstack como NextJS, Angular, NuxtJS etc.
 
 ## Como testar em minha máquina?
 Este projeto conecta a um banco de dados Redis que deve estar instalado em sua máquina para ser usado, configure e insira as credenciais em um arquivo `.env` que fica na raiz do projeto, apenas copie e cole o `.env.example` no mesmo lugar e renomeie para `.env`.
